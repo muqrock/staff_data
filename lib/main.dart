@@ -1,122 +1,79 @@
+// main.dart
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart'; // Required for Firebase initialization
+import 'package:cloud_firestore/cloud_firestore.dart'; // Required for Firestore operations
+import 'package:firebase_auth/firebase_auth.dart'; // Required for Firebase Authentication (for security rules)
 
-void main() {
+import 'add_staff.dart'; // Import the staff creation page
+import 'staff_list.dart'; // Import the staff list page
+import 'staff_model.dart'; // Import the Staff model
+
+// This is where your Firebase configuration will go.
+// Replace with your actual Firebase project configuration.
+// You will get this from your Firebase project settings (Web app configuration).
+// For a real project, consider using flutter_dotenv or build_runner to manage environment variables.
+const firebaseOptions = {
+  apiKey:
+      "YOUR_API_KEY", // This will be provided when you register your Android app!
+  authDomain: "lab-test-d20221104752.firebaseapp.com",
+  projectId: "lab-test-d20221104752",
+  storageBucket: "lab-test-d20221104752.firebasestorage.app",
+  messagingSenderId: "515738333498", // Your Project Number
+  appId:
+      "YOUR_APP_ID", // This unique ID will be provided when you register your Android app!
+  measurementId:
+      undefined, // Optional: Will appear if you enable Google Analytics later
+};
+
+void main() async {
+  // Ensure Flutter widgets are initialized before Firebase.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase using the options defined above.
+  try {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: firebaseOptions['apiKey']!,
+        authDomain: firebaseOptions['authDomain']!,
+        projectId: firebaseOptions['projectId']!,
+        storageBucket: firebaseOptions['storageBucket']!,
+        messagingSenderId: firebaseOptions['messagingSenderId']!,
+        appId: firebaseOptions['appId']!,
+        // If you have measurementId, uncomment the line below
+        // measurementId: firebaseOptions['measurementId'],
+      ),
+    );
+    // Sign in anonymously to satisfy Firestore security rules that require authentication.
+    // If you plan to implement user authentication, replace this with your chosen method.
+    await FirebaseAuth.instance.signInAnonymously();
+    print("Firebase initialized and signed in anonymously.");
+  } catch (e) {
+    print("Error initializing Firebase: $e");
+    // You might want to display an error message to the user here.
+  }
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Staff Management App',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        useMaterial3: true, // Enable Material 3 design
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // Define named routes for easy navigation
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const StaffListPage(), // Home page is the staff list
+        '/add_staff':
+            (context) => const AddStaffPage(), // Route to add staff page
+      },
     );
   }
 }
