@@ -155,8 +155,8 @@ class StaffListPage extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    'ID: ${staff.staffId} | Age: ${staff.age}',
-                    style: TextStyle(color: Colors.grey[600]),
+                    'ID: ${staff.staffId}\nAge : ${staff.age}',
+                    style: TextStyle(color: Colors.grey[700], height: 1.4),
                   ),
                   trailing: Row(
                     mainAxisSize:

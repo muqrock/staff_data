@@ -32,10 +32,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Staff Manager',
       theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
-      initialRoute: '/',
+      initialRoute: '/add_staff', // 👈 This is now the first screen
       routes: {
-        '/add_staff': (context) => const AddStaffPage(),
         '/': (context) => const StaffListPage(),
+        '/add_staff': (context) => const AddStaffPage(),
       },
     );
   }
