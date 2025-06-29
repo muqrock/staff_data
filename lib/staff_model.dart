@@ -2,9 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Staff {
-  String? id; // Firestore document ID
+  String? id;
   String name;
-  String staffId; // Renamed from 'id' to avoid confusion with document ID
+  String staffId;
   int age;
 
   Staff({
@@ -14,7 +14,6 @@ class Staff {
     required this.age,
   });
 
-  // Factory constructor to create a Staff object from a Firestore document
   factory Staff.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data()!;
     return Staff(
@@ -25,13 +24,12 @@ class Staff {
     );
   }
 
-  // Convert a Staff object to a Map for Firestore storage
   Map<String, dynamic> toFirestore() {
     return {
       'name': name,
       'staffId': staffId,
       'age': age,
-      'timestamp': FieldValue.serverTimestamp(), // Add a timestamp for ordering
+      'timestamp': FieldValue.serverTimestamp(),
     };
   }
 }

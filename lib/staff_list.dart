@@ -1,8 +1,8 @@
 // staff_list_page.dart
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // For Firestore operations
-import 'package:staff_data/staff_model.dart'; // Import the Staff model
-import 'package:staff_data/add_staff.dart'; // Import AddStaffPage for navigation
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:staff_data/staff_model.dart';
+import 'package:staff_data/add_staff.dart';
 
 class StaffListPage extends StatelessWidget {
   const StaffListPage({super.key});

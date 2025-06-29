@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'staff_list.dart';
-import 'add_staff.dart'; // ✅ <-- Add this line to fix the error
+import 'add_staff.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +20,6 @@ void main() async {
     print("❌ Error initializing Firebase: $e");
   }
 }
-
-// ... rest of the code unchanged ...
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -88,7 +86,7 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.black87, // Text on white
         ),
       ),
-      initialRoute: '/add_staff', // 👈 This is now the first screen
+      initialRoute: '/add_staff', //first screen
       routes: {
         '/': (context) => const StaffListPage(),
         '/add_staff': (context) => const AddStaffPage(),

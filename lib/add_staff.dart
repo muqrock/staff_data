@@ -1,12 +1,9 @@
-// add_staff_page.dart
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // For Firestore operations
-import 'package:staff_data/staff_model.dart'; // Import the Staff model
-
-// ignore_for_file: library_private_types_in_public_api
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:staff_data/staff_model.dart';
 
 class AddStaffPage extends StatefulWidget {
-  final Staff? staffToEdit; // Optional: Pass a staff object for editing
+  final Staff? staffToEdit;
 
   const AddStaffPage({super.key, this.staffToEdit});
 
@@ -20,12 +17,12 @@ class _AddStaffPageState extends State<AddStaffPage> {
   final TextEditingController _staffIdController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
 
-  bool _isLoading = false; // To show a loading indicator
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    // If a staff object is passed for editing, pre-fill the form fields.
+
     if (widget.staffToEdit != null) {
       _nameController.text = widget.staffToEdit!.name;
       _staffIdController.text = widget.staffToEdit!.staffId;
@@ -35,18 +32,16 @@ class _AddStaffPageState extends State<AddStaffPage> {
 
   @override
   void dispose() {
-    // Clean up the controllers when the widget is disposed.
     _nameController.dispose();
     _staffIdController.dispose();
     _ageController.dispose();
     super.dispose();
   }
 
-  // Function to save or update staff data in Firestore
   Future<void> _saveStaff() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
-        _isLoading = true; // Show loading indicator
+        _isLoading = true;
       });
 
       try {
@@ -84,7 +79,6 @@ class _AddStaffPageState extends State<AddStaffPage> {
     }
   }
 
-  // Helper function to show a SnackBar message
   void _showSnackBar(String message, {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
