@@ -1,4 +1,3 @@
-// staff_list_page.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:staff_data/staff_model.dart';
@@ -7,7 +6,7 @@ import 'package:staff_data/add_staff.dart';
 class StaffListPage extends StatelessWidget {
   const StaffListPage({super.key});
 
-  // Function to show a confirmation dialog for deletion
+  //function to show a confirmation dialog for deletion
   Future<void> _confirmDelete(BuildContext context, Staff staff) async {
     return showDialog(
       context: context,
@@ -21,14 +20,14 @@ class StaffListPage extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Dismiss dialog
+                Navigator.of(context).pop(); //dismiss dialog
               },
               child: const Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () async {
-                Navigator.of(context).pop(); // Dismiss dialog
-                await _deleteStaff(context, staff.id!); // Call delete function
+                Navigator.of(context).pop(); //dismiss dialog
+                await _deleteStaff(context, staff.id!); //call delete function
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -42,7 +41,7 @@ class StaffListPage extends StatelessWidget {
     );
   }
 
-  // Function to delete staff data from Firestore
+  //function to delete staff data from Firestore
   Future<void> _deleteStaff(BuildContext context, String staffId) async {
     try {
       await FirebaseFirestore.instance
@@ -64,7 +63,7 @@ class StaffListPage extends StatelessWidget {
           duration: const Duration(seconds: 2),
         ),
       );
-      print('Error deleting staff: $e'); // For debugging
+      print('Error deleting staff: $e'); //for debugging
     }
   }
 
@@ -77,12 +76,14 @@ class StaffListPage extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: StreamBuilder<QuerySnapshot>(
-        // Listen to changes in the 'staff' collection.
-        // orderBy('timestamp', descending: true) ensures the latest added staff appear at the top.
+        //listen to changes in the 'staff' collection.
         stream:
             FirebaseFirestore.instance
                 .collection('staff')
-                .orderBy('timestamp', descending: true)
+                .orderBy(
+                  'timestamp',
+                  descending: true,
+                ) //orderBy ensures the latest added staff appear at the top.
                 .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -109,7 +110,7 @@ class StaffListPage extends StatelessWidget {
             );
           }
 
-          // Map the Firestore documents to a list of Staff objects
+          //map the Firestore documents to a list of Staff objects
           final staffList =
               snapshot.data!.docs
                   .map(
@@ -125,7 +126,7 @@ class StaffListPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final staff = staffList[index];
               return Card(
-                elevation: 4, // Add a slight shadow
+                elevation: 4, //add a slight shadow
                 margin: const EdgeInsets.symmetric(vertical: 8.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -160,13 +161,13 @@ class StaffListPage extends StatelessWidget {
                   ),
                   trailing: Row(
                     mainAxisSize:
-                        MainAxisSize.min, // Important to prevent overflow
+                        MainAxisSize.min, //important to prevent overflow
                     children: [
                       IconButton(
                         icon: const Icon(Icons.edit, color: Colors.blue),
                         tooltip: 'Edit Staff',
                         onPressed: () {
-                          // Navigate to AddStaffPage for editing, passing the staff object
+                          //navigate to AddStaffPage for editing, passing the staff object
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -183,7 +184,7 @@ class StaffListPage extends StatelessWidget {
                             () => _confirmDelete(
                               context,
                               staff,
-                            ), // Show confirmation dialog
+                            ), //show confirmation dialog
                       ),
                     ],
                   ),
@@ -195,7 +196,7 @@ class StaffListPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to the Staff Creation Page
+          //navigate to the Staff Creation Page
           Navigator.pushNamed(context, '/add_staff');
         },
         icon: const Icon(Icons.person_add),

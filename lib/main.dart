@@ -31,15 +31,15 @@ class MyApp extends StatelessWidget {
       title: 'Staff Manager',
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFF8F9FA), // Ultra-light grey
+        scaffoldBackgroundColor: const Color(0xFFF8F9FA), //ultra-light grey
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF343A40), // Dark charcoal
+          backgroundColor: Color(0xFF343A40), //dark charcoal
           foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color(0xFF495057), // Medium grey
+          backgroundColor: Color(0xFF495057), //medium grey
           foregroundColor: Colors.white,
           elevation: 4,
         ),
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF495057), // Matching FAB
+            backgroundColor: const Color(0xFF495057),
             foregroundColor: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             shape: RoundedRectangleBorder(
@@ -78,12 +78,12 @@ class MyApp extends StatelessWidget {
           space: 0,
         ),
         colorScheme: ColorScheme.light(
-          primary: Color(0xFF343A40), // App bar color
-          secondary: Color(0xFF495057), // Buttons/FAB
-          surface: Colors.white, // Cards
-          background: Color(0xFFF8F9FA), // Scaffold
-          onPrimary: Colors.white, // Text on dark
-          onSurface: Colors.black87, // Text on white
+          primary: Color(0xFF343A40), //app bar color
+          secondary: Color(0xFF495057), //buttons/FAB
+          surface: Colors.white, //cards
+          background: Color(0xFFF8F9FA), //scaffold
+          onPrimary: Colors.white, //text on dark
+          onSurface: Colors.black87, //text on white
         ),
       ),
       initialRoute: '/add_staff', //first screen

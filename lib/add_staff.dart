@@ -12,7 +12,7 @@ class AddStaffPage extends StatefulWidget {
 }
 
 class _AddStaffPageState extends State<AddStaffPage> {
-  final _formKey = GlobalKey<FormState>(); // Key for form validation
+  final _formKey = GlobalKey<FormState>(); //key for form validation
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _staffIdController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
@@ -52,13 +52,13 @@ class _AddStaffPageState extends State<AddStaffPage> {
         );
 
         if (widget.staffToEdit == null) {
-          // Create new staff
+          //create new staff
           await FirebaseFirestore.instance
               .collection('staff')
               .add(staff.toFirestore());
           _showSnackBar('Staff added successfully!');
         } else {
-          // Update existing staff
+          //update existing staff
           await FirebaseFirestore.instance
               .collection('staff')
               .doc(widget.staffToEdit!.id)
@@ -66,14 +66,14 @@ class _AddStaffPageState extends State<AddStaffPage> {
           _showSnackBar('Staff updated successfully!');
         }
 
-        // Navigate back to the Staff List Page after successful operation
+        //navigate back to the Staff List Page after successful operation
         Navigator.pop(context);
       } catch (e) {
         _showSnackBar('Error saving staff: $e', isError: true);
         print('Error saving staff: $e'); // For debugging
       } finally {
         setState(() {
-          _isLoading = false; // Hide loading indicator
+          _isLoading = false; //hide loading indicator
         });
       }
     }
@@ -151,7 +151,7 @@ class _AddStaffPageState extends State<AddStaffPage> {
                   ),
                   prefixIcon: const Icon(Icons.calendar_today),
                 ),
-                keyboardType: TextInputType.number, // Only allow numbers
+                keyboardType: TextInputType.number, //only allow numbers
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter staff age';
@@ -169,13 +169,13 @@ class _AddStaffPageState extends State<AddStaffPage> {
                     onPressed: _saveStaff,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          Theme.of(context).primaryColor, // Button color
-                      foregroundColor: Colors.white, // Text color
+                          Theme.of(context).primaryColor, //button color
+                      foregroundColor: Colors.white, //text color
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      elevation: 5, // Add a shadow
+                      elevation: 5, //add a shadow
                     ),
                     child: Text(
                       widget.staffToEdit == null
